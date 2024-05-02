@@ -84,7 +84,6 @@ import Layout from '../../layouts/Layout.astro'
 
   const keys = document.querySelectorAll('.key')
 
-  // @ts-ignore
   keys.forEach(key => key.addEventListener('transitionend', removeTransition))
   window.addEventListener('keydown', playSound)
 </script>
