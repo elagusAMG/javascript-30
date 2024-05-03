@@ -72,7 +72,6 @@ import Layout from '../../layouts/Layout.astro'
         ? event.key
         : (event.target as HTMLElement).parentElement.getAttribute('data-key')
 
-    // const eventKey = event.key.toLowerCase()
     const key = document.querySelector<HTMLDivElement>(
       `div[data-key="${eventKey}"]`,
     )
