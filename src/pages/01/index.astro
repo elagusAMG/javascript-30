@@ -66,8 +66,13 @@ import Layout from '../../layouts/Layout.astro'
     targetElement.classList.remove('playing')
   }
 
-  function playSound(event: KeyboardEvent) {
-    const eventKey = event.key.toLowerCase();
+  function playSound(event: KeyboardEvent | MouseEvent) {
+    let eventKey =
+      event instanceof KeyboardEvent
+        ? event.key
+        : (event.target as HTMLElement).parentElement.getAttribute('data-key')
+
+    // const eventKey = event.key.toLowerCase()
     const key = document.querySelector<HTMLDivElement>(
       `div[data-key="${eventKey}"]`,
     )
@@ -84,15 +89,18 @@ import Layout from '../../layouts/Layout.astro'
 
   const keys = document.querySelectorAll('.key')
 
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+  keys.forEach(key => {
+    key.addEventListener('transitionend', removeTransition)
+    key.addEventListener('click', playSound)
+  })
+
   window.addEventListener('keydown', playSound)
 </script>
 
 <style>
   html {
     font-size: 10px;
-    background: url('images/javascript-01-background.jpg') bottom
-      center;
+    background: url('images/javascript-01-background.jpg') bottom center;
     background-size: cover;
   }
 
